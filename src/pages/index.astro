@@ -12,15 +12,18 @@ import Layout from '../layouts/Layout.astro';
         </div>
         <div>
           <span class="font-display font-extrabold text-2xl tracking-tight">Prospect<span class="text-blue-600 dark:text-blue-400">AUTO</span></span>
-          <span class="block text-[11px] font-medium text-slate-500 dark:text-slate-400 uppercase tracking-widest">Scanner Réel OpenStreetMap & SIRENE</span>
+          <span class="block text-[11px] font-medium text-slate-500 dark:text-slate-400 uppercase tracking-widest">Scanner & Hub de Prospection Réel</span>
         </div>
       </div>
 
-      <nav class="hidden md:flex items-center space-x-8 text-sm font-semibold text-slate-600 dark:text-slate-300">
+      <nav class="hidden md:flex items-center space-x-6 text-sm font-semibold text-slate-600 dark:text-slate-300">
         <a href="#scanner-section" class="hover:text-blue-600 dark:hover:text-blue-400 transition-colors">Scanner de Prospection</a>
-        <a href="#prospects-table" class="hover:text-blue-600 dark:hover:text-blue-400 transition-colors">Établissements Réels</a>
-        <a href="#tracking-section" class="hover:text-blue-600 dark:hover:text-blue-400 transition-colors">Suivi des Mails Envoyés</a>
-        <a href="#domaines" class="hover:text-blue-600 dark:hover:text-blue-400 transition-colors">Mes Domaines de Sites</a>
+        <a href="#prospects-table" class="hover:text-blue-600 dark:hover:text-blue-400 transition-colors">Tous les Établissements</a>
+        <a href="#saved-section" class="hover:text-blue-600 dark:hover:text-blue-400 transition-colors flex items-center gap-1.5 text-amber-600 dark:text-amber-400 font-bold">
+          <i class="fa-solid fa-bookmark"></i> Enregistrés (<span id="nav-saved-count">0</span>)
+        </a>
+        <a href="#tracking-section" class="hover:text-blue-600 dark:hover:text-blue-400 transition-colors">Suivi Mails</a>
+        <a href="#domaines" class="hover:text-blue-600 dark:hover:text-blue-400 transition-colors">Mes Domaines</a>
       </nav>
 
       <div class="flex items-center space-x-3">
@@ -41,16 +44,16 @@ import Layout from '../layouts/Layout.astro';
     <div class="flex flex-col md:flex-row items-start md:items-center justify-between gap-4 p-6 rounded-3xl glass-card">
       <div>
         <h1 class="font-display text-2xl sm:text-3xl font-extrabold tracking-tight">
-          Scanner Géographique & Établissements Réels
+          Scanner Élargi & Carnet de Prospects Enregistrés
         </h1>
         <p class="text-xs sm:text-sm text-slate-600 dark:text-slate-400 mt-1">
-          Scan direct via les bases cadastrales officielles (OpenStreetMap + Base SIRENE État Français). 100% établissements existants avec adresses et positions géographiques certifiées.
+          Scannez toutes les crèches (micro-crèches, crèches parentales, haltes), restaurants (brasseries, bistrots, snacks, pizzerias), coiffeurs & barbiers, ou écoles. Mémorisez les meilleurs prospects d'un clic.
         </p>
       </div>
       <div class="flex items-center gap-3">
         <div class="flex items-center gap-2 px-3 py-1.5 rounded-xl text-xs font-semibold bg-emerald-100/80 dark:bg-emerald-950/60 text-emerald-800 dark:text-emerald-300 border border-emerald-300 dark:border-emerald-800">
           <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
-          Données Certifiées 100% Réelles
+          Scan Multi-Requêtes Élargi & Téléphone Direct
         </div>
       </div>
     </div>
@@ -64,7 +67,7 @@ import Layout from '../layouts/Layout.astro';
             <h2 class="font-display text-2xl font-bold tracking-tight mt-1">Scanner une zone & un secteur d'activité</h2>
           </div>
           <div class="text-xs text-slate-500">
-            Recherche par rayon kilométrique avec coordonnées GPS réelles
+            Recherche globale multi-formats avec géolocalisation
           </div>
         </div>
 
@@ -76,10 +79,10 @@ import Layout from '../layouts/Layout.astro';
               <i class="fa-solid fa-shapes text-blue-500 mr-1"></i> Domaine d'activité
             </label>
             <select id="scan-domain" class="w-full px-3.5 py-2.5 rounded-xl bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-sm font-semibold focus:ring-2 focus:ring-blue-500 outline-none">
-              <option value="creche" selected>🍼 Micro-Crèches</option>
-              <option value="restaurant">🍽️ Restaurants & Brasseries</option>
-              <option value="barbier">✂️ Coiffeurs & Barbiers</option>
-              <option value="ecole">🎓 Petites Écoles & Établissements Privés</option>
+              <option value="creche" selected>🍼 Crèches & Micro-Crèches</option>
+              <option value="restaurant">🍽️ Restaurants, Brasseries & Snacks</option>
+              <option value="barbier">✂️ Coiffeurs & Salons de Barbier</option>
+              <option value="ecole">🎓 Écoles & Établissements Privés</option>
             </select>
           </div>
 
@@ -151,23 +154,27 @@ import Layout from '../layouts/Layout.astro';
                   <strong id="summary-radius" class="text-slate-800 dark:text-slate-200">15 km</strong>
                 </div>
                 <div class="flex justify-between items-center text-slate-600 dark:text-slate-400">
-                  <span>Secteur analysé :</span>
-                  <strong id="summary-domain" class="text-slate-800 dark:text-slate-200">Micro-Crèches</strong>
+                  <span>Secteur élargi :</span>
+                  <strong id="summary-domain" class="text-slate-800 dark:text-slate-200">Crèches & Micro-Crèches</strong>
                 </div>
                 <div class="flex justify-between items-center text-slate-600 dark:text-slate-400">
-                  <span>Sites officiels répertoriés :</span>
-                  <strong id="summary-websites" class="text-emerald-600 dark:text-emerald-400">0 / 0</strong>
+                  <span>Téléphone détecté :</span>
+                  <strong id="summary-phones" class="text-emerald-600 dark:text-emerald-400">0 / 0</strong>
+                </div>
+                <div class="flex justify-between items-center text-slate-600 dark:text-slate-400">
+                  <span>Sites web répertoriés :</span>
+                  <strong id="summary-websites" class="text-blue-600 dark:text-blue-400">0 / 0</strong>
                 </div>
               </div>
             </div>
 
-            <!-- Guide sécurité / Harvey -->
+            <!-- Aide contact -->
             <div class="p-3.5 rounded-xl bg-blue-50/80 dark:bg-blue-950/40 border border-blue-200/60 dark:border-blue-900/60 text-[11px] text-blue-900 dark:text-blue-300 space-y-1.5">
               <div class="font-bold flex items-center gap-1.5">
-                <i class="fa-solid fa-shield-halved text-blue-600"></i> Données Vérifiées
+                <i class="fa-solid fa-phone-volume text-blue-600"></i> Appels & Recherche Directe
               </div>
               <p class="leading-relaxed">
-                Les structures affichées sont enregistrées auprès de la base OpenStreetMap France et du Registre National des Entreprises (RNE). Les emails non publics sont marqués pour être appelés directement par téléphone.
+                Cliquez directement sur le numéro de téléphone pour appeler l'établissement. S'il n'est pas encore synchronisé, un clic sur <strong>"Google"</strong> ou <strong>"PagesJaunes"</strong> ouvre directement leur fiche locale avec le standard téléphonique à jour.
               </p>
             </div>
           </div>
@@ -176,18 +183,62 @@ import Layout from '../layouts/Layout.astro';
       </div>
     </section>
 
-    <!-- LISTE DES ÉTABLISSEMENTS SCANNÉS (TABLEAU ENRICHI) -->
+    <!-- SECTION DES PROSPECTS ENREGISTRÉS (FAVORIS / BOOKMARKS) -->
+    <section id="saved-section" class="space-y-4">
+      <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 p-4 rounded-2xl bg-amber-50/80 dark:bg-amber-950/30 border border-amber-200 dark:border-amber-800/50">
+        <div>
+          <span class="text-xs font-bold text-amber-700 dark:text-amber-400 uppercase tracking-widest flex items-center gap-1.5">
+            <i class="fa-solid fa-bookmark text-amber-500"></i> Mes Prospects Enregistrés
+          </span>
+          <h2 class="font-display text-xl font-bold tracking-tight mt-0.5">
+            Établissements mémorisés pour mon démarchage
+          </h2>
+        </div>
+        <div class="flex items-center gap-2">
+          <span id="saved-badge-header" class="text-xs font-bold text-amber-800 dark:text-amber-300 bg-amber-100 dark:bg-amber-900/60 px-3 py-1 rounded-xl">0 enregistré(s)</span>
+          <button type="button" id="btn-export-saved-csv" class="px-3 py-1.5 rounded-xl text-xs font-bold bg-white dark:bg-slate-800 border border-amber-300 dark:border-amber-700 hover:bg-amber-50 text-amber-900 dark:text-amber-200 transition-colors">
+            <i class="fa-solid fa-file-csv mr-1"></i> Exporter
+          </button>
+        </div>
+      </div>
+
+      <div class="rounded-2xl glass-card border border-amber-200/80 dark:border-amber-900/40 overflow-hidden shadow-sm">
+        <div class="overflow-x-auto">
+          <table class="w-full text-left text-xs">
+            <thead class="bg-amber-100/50 dark:bg-amber-950/50 border-b border-amber-200 dark:border-amber-900/60 font-bold text-slate-700 dark:text-slate-300 uppercase tracking-wider">
+              <tr>
+                <th class="py-3 px-4">Établissement</th>
+                <th class="py-3 px-4">Secteur</th>
+                <th class="py-3 px-4">Adresse</th>
+                <th class="py-3 px-4">Téléphone / Contact</th>
+                <th class="py-3 px-4">Site Web</th>
+                <th class="py-3 px-4 text-center">Actions</th>
+              </tr>
+            </thead>
+            <tbody id="saved-tbody" class="divide-y divide-amber-100 dark:divide-slate-800">
+              <tr>
+                <td colspan="6" class="text-center py-6 text-slate-400">
+                  Aucun prospect enregistré. Cliquez sur l'icône <i class="fa-regular fa-bookmark text-amber-500"></i> dans le tableau ci-dessous pour mémoriser un établissement.
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- LISTE COMPLÈTE DES ÉTABLISSEMENTS SCANNÉS -->
     <section id="prospects-table" class="space-y-4">
       <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3">
         <div>
-          <span class="text-xs font-bold text-blue-600 dark:text-blue-400 uppercase tracking-widest">Résultats Détaillés</span>
+          <span class="text-xs font-bold text-blue-600 dark:text-blue-400 uppercase tracking-widest">Résultats Détaillés du Scan</span>
           <h2 class="font-display text-2xl font-bold tracking-tight mt-0.5">
-            Établissements réels détectés & Coordonnées
+            Tous les Établissements Réels Détectés
           </h2>
         </div>
         <div class="flex items-center gap-2">
           <button type="button" id="btn-export-csv" class="px-3.5 py-2 rounded-xl text-xs font-bold border border-slate-200 dark:border-slate-800 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors flex items-center gap-1.5">
-            <i class="fa-solid fa-file-csv text-emerald-500"></i> Exporter la liste (CSV)
+            <i class="fa-solid fa-file-csv text-emerald-500"></i> Exporter tous les résultats (CSV)
           </button>
         </div>
       </div>
@@ -197,8 +248,9 @@ import Layout from '../layouts/Layout.astro';
           <table class="w-full text-left text-xs">
             <thead class="bg-slate-100/80 dark:bg-slate-900/80 border-b border-slate-200 dark:border-slate-800 font-bold text-slate-600 dark:text-slate-300 uppercase tracking-wider">
               <tr>
+                <th class="py-3 px-3 w-10 text-center"><i class="fa-solid fa-bookmark text-amber-500" title="Enregistrer"></i></th>
                 <th class="py-3 px-4">Établissement</th>
-                <th class="py-3 px-4">Adresse Réelle</th>
+                <th class="py-3 px-4">Adresse & Ville</th>
                 <th class="py-3 px-4">Téléphone</th>
                 <th class="py-3 px-4">Email</th>
                 <th class="py-3 px-4">Site Web Détecté</th>
@@ -207,7 +259,7 @@ import Layout from '../layouts/Layout.astro';
             </thead>
             <tbody id="prospects-tbody" class="divide-y divide-slate-200 dark:divide-slate-800">
               <tr>
-                <td colspan="6" class="text-center py-10 text-slate-400">
+                <td colspan="7" class="text-center py-10 text-slate-400">
                   <i class="fa-solid fa-satellite-dish text-3xl mb-3 text-slate-300 dark:text-slate-700 block animate-bounce"></i>
                   Chargement des établissements réels en cours...
                 </td>
@@ -272,7 +324,7 @@ import Layout from '../layouts/Layout.astro';
           <div class="w-10 h-10 rounded-xl bg-emerald-100 dark:bg-emerald-950 text-emerald-600 flex items-center justify-center text-lg font-bold">
             🍼
           </div>
-          <h3 class="font-bold text-base">Micro-Crèches</h3>
+          <h3 class="font-bold text-base">Crèches & Micro-Crèches</h3>
           <p class="text-xs text-slate-600 dark:text-slate-400 leading-relaxed">
             Formulaire de pré-inscription complet, présentation de la journée type, équipe, projet pédagogique et respect du cahier des charges PMI.
           </p>
@@ -283,7 +335,7 @@ import Layout from '../layouts/Layout.astro';
           <div class="w-10 h-10 rounded-xl bg-orange-100 dark:bg-orange-950 text-orange-600 flex items-center justify-center text-lg font-bold">
             🍽️
           </div>
-          <h3 class="font-bold text-base">Restaurants</h3>
+          <h3 class="font-bold text-base">Restaurants, Brasseries & Snacks</h3>
           <p class="text-xs text-slate-600 dark:text-slate-400 leading-relaxed">
             Remplacement des cartes PDF illisibles par un menu mobile instantané et système de réservation de couverts direct sans commission.
           </p>
@@ -294,7 +346,7 @@ import Layout from '../layouts/Layout.astro';
           <div class="w-10 h-10 rounded-xl bg-amber-100 dark:bg-amber-950 text-amber-600 flex items-center justify-center text-lg font-bold">
             ✂️
           </div>
-          <h3 class="font-bold text-base">Coiffeurs & Barbiers</h3>
+          <h3 class="font-bold text-base">Coiffeurs & Salons de Barbier</h3>
           <p class="text-xs text-slate-600 dark:text-slate-400 leading-relaxed">
             Grille tarifaire claire, galerie de coiffures/grooming et bouton d'action vers la réservation immédiate (Planity, direct).
           </p>
@@ -305,7 +357,7 @@ import Layout from '../layouts/Layout.astro';
           <div class="w-10 h-10 rounded-xl bg-purple-100 dark:bg-purple-950 text-purple-600 flex items-center justify-center text-lg font-bold">
             🎓
           </div>
-          <h3 class="font-bold text-base">Petites Écoles</h3>
+          <h3 class="font-bold text-base">Petites Écoles & Établissements Privés</h3>
           <p class="text-xs text-slate-600 dark:text-slate-400 leading-relaxed">
             Dossier d'admission en ligne, calendrier des événements et journées portes ouvertes, valorisation du projet éducatif alternatif.
           </p>
@@ -315,7 +367,7 @@ import Layout from '../layouts/Layout.astro';
 
   </main>
 
-  <!-- MODAL DE CONFIRMATION / PRÉPARATION D'EMAIL HARVEY -->
+  <!-- MODAL DE CONFIRMATION / PRÉPARATION D'EMAIL -->
   <div id="email-modal" class="fixed inset-0 z-50 bg-black/60 backdrop-blur-sm hidden flex items-center justify-center p-4">
     <div class="bg-white dark:bg-slate-900 rounded-3xl max-w-2xl w-full p-6 sm:p-8 shadow-2xl border border-slate-200 dark:border-slate-800 space-y-6 relative max-h-[90vh] overflow-y-auto">
       
@@ -373,11 +425,11 @@ import Layout from '../layouts/Layout.astro';
   <footer class="py-8 border-t border-slate-200 dark:border-slate-800 text-center text-xs text-slate-500">
     <div class="max-w-7xl mx-auto px-4 space-y-2">
       <p class="font-display font-bold text-slate-700 dark:text-slate-300">ProspectAUTO &copy; 2026 - Plateforme de Prospection & Solutions Web Métier</p>
-      <p>Micro-Crèches • Restaurants • Salons de Barbier & Coiffure • Petites Écoles</p>
+      <p>Micro-Crèches & Crèches • Restaurants & Snacks • Coiffeurs & Barbiers • Petites Écoles</p>
     </div>
   </footer>
 
-  <!-- APPLICATION LOGIC & REAL MAPPING -->
+  <!-- SCRIPT LOGIQUE PROSPECTION -->
   <script>
     declare const L: any;
 
@@ -416,7 +468,37 @@ import Layout from '../layouts/Layout.astro';
     let currentProspects: Prospect[] = [];
     let selectedProspectForEmail: Prospect | null = null;
 
-    // Tracking
+    // Local Storage: Saved Bookmarks
+    const SAVED_KEY = 'prospectauto_saved_leads';
+    function getSaved(): Prospect[] {
+      try {
+        const data = localStorage.getItem(SAVED_KEY);
+        return data ? JSON.parse(data) : [];
+      } catch {
+        return [];
+      }
+    }
+    function saveSaved(list: Prospect[]) {
+      localStorage.setItem(SAVED_KEY, JSON.stringify(list));
+      renderSavedTable();
+      renderProspectsTable();
+    }
+    function isProspectSaved(id: string): boolean {
+      return getSaved().some(p => p.id === id);
+    }
+    (window as any).toggleSaveProspect = function(id: string) {
+      const savedList = getSaved();
+      const existingIdx = savedList.findIndex(p => p.id === id);
+      if (existingIdx >= 0) {
+        savedList.splice(existingIdx, 1);
+      } else {
+        const p = currentProspects.find(item => item.id === id);
+        if (p) savedList.unshift(p);
+      }
+      saveSaved(savedList);
+    };
+
+    // Local Storage: Email Tracking
     const TRACKING_KEY = 'prospectauto_tracking';
     function getTracking(): TrackingItem[] {
       try {
@@ -435,15 +517,15 @@ import Layout from '../layouts/Layout.astro';
     const emailTemplates: Record<string, { subject: string; body: (p: Prospect) => string }> = {
       creche: {
         subject: "Modernisation des inscriptions & vitrine pédagogique",
-        body: (p) => `Bonjour ${p.name},\n\nJe vous contacte car j'accompagne spécifiquement les micro-crèches dans la mise en avant de leur projet pédagogique et la gestion simplifiée de leurs admissions.\n\nEn repérant votre structure à ${p.city}, j'ai constaté l'importance que vous accordez au bien-être des tout-petits. Pour d'autres gestionnaires de crèches, nous avons conçu un site clé-en-main comprenant un formulaire de pré-inscription complet (normes CAF/PMI), un aperçu de la journée type et une vitrine sécurisée pour rassurer les familles.\n\nSeriez-vous ouvert(e) à échanger 5 minutes cette semaine par téléphone ?\n\nBien cordialement,\nAlexandre Poveda\n06 00 00 00 00`
+        body: (p) => `Bonjour ${p.name},\n\nJe vous contacte car j'accompagne spécifiquement les crèches et structures petite enfance dans la mise en avant de leur projet pédagogique et la gestion simplifiée de leurs admissions.\n\nEn découvrant votre structure à ${p.city}, j'ai constaté l'importance que vous accordez à l'accueil et au bien-être des tout-petits. Pour d'autres gestionnaires de crèches, nous avons conçu un portail clé-en-main comprenant un formulaire de pré-inscription complet (normes CAF/PMI), un aperçu de la journée type et une vitrine sécurisée pour rassurer les familles.\n\nSeriez-vous ouvert(e) à échanger 5 minutes cette semaine par téléphone ?\n\nBien cordialement,\nAlexandre Poveda\n06 00 00 00 00`
       },
       restaurant: {
         subject: "Remplacement du menu PDF & réservations sans commission",
-        body: (p) => `Bonjour l'équipe de ${p.name},\n\nJe suis tombé sur votre établissement à ${p.city} et votre carte fait très envie !\n\nToutefois, la majorité des clients sur smartphone fuient les menus en fichiers PDF difficiles à zoomer ou passent par des plateformes qui prélèvent des commissions importantes sur chaque couvert.\n\nNous concevons pour les restaurateurs des sites fluides avec un menu digital interactif instantané et un module de réservation direct sans intermédiaire.\n\nAuriez-vous 5 minutes pour y jeter un coup d'œil lors d'un appel rapide ?\n\nBien cordialement,\nAlexandre Poveda`
+        body: (p) => `Bonjour l'équipe de ${p.name},\n\nJe suis tombé sur votre établissement à ${p.city} et vos spécialités font très envie !\n\nToutefois, la majorité des clients sur smartphone fuient les menus en fichiers PDF difficiles à zoomer ou passent par des plateformes qui prélèvent des commissions importantes sur chaque couvert.\n\nNous concevons pour les restaurateurs des sites fluides avec un menu digital interactif instantané et un module de réservation direct sans intermédiaire.\n\nAuriez-vous 5 minutes pour y jeter un coup d'œil lors d'un appel rapide ?\n\nBien cordialement,\nAlexandre Poveda`
       },
       barbier: {
         subject: "Visibilité locale Google Maps & rendez-vous en ligne",
-        body: (p) => `Bonjour ${p.name},\n\nJe vous écris après avoir découvert votre salon à ${p.city}. L'univers coiffure & grooming que vous proposez est remarquable.\n\nPour les salons de coiffure et barbiers indépendants, nous déployons des sites au design soigné intégrant immédiatement la grille de prestations et la redirection directe vers la prise de créneau en ligne pour capter les clients locaux sur Google.\n\nPouvons-nous en discuter 5 minutes cette semaine ?\n\nBien cordialement,\nAlexandre Poveda`
+        body: (p) => `Bonjour ${p.name},\n\nJe vous écris après avoir découvert votre salon à ${p.city}. L'univers et le savoir-faire que vous proposez sont remarquables.\n\nPour les salons de coiffure et barbiers indépendants, nous déployons des sites au design soigné intégrant immédiatement la grille de prestations et la redirection directe vers la prise de créneau en ligne pour capter les clients locaux sur Google.\n\nPouvons-nous en discuter 5 minutes cette semaine ?\n\nBien cordialement,\nAlexandre Poveda`
       },
       ecole: {
         subject: "Portail d'admission & valorisation pédagogique",
@@ -451,7 +533,7 @@ import Layout from '../layouts/Layout.astro';
       }
     };
 
-    // Calculate approximate distance (Haversine formula)
+    // Calculate approximate distance
     function calculateDistanceKm(lat1: number, lon1: number, lat2: number, lon2: number): number {
       const R = 6371;
       const dLat = (lat2 - lat1) * Math.PI / 180;
@@ -495,12 +577,12 @@ import Layout from '../layouts/Layout.astro';
       map.fitBounds(radiusCircle.getBounds(), { padding: [20, 20] });
     }
 
-    // REAL SCAN FUNCTION: Queries OpenStreetMap + French Government SIRENE API
+    // MULTI-QUERY REAL SCAN ENGINE
     async function performScan() {
       const scanBtnText = document.getElementById('scan-btn-text');
       const mapStatus = document.getElementById('map-status');
-      if (scanBtnText) scanBtnText.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Scan réel en cours...';
-      if (mapStatus) mapStatus.textContent = 'Interrogation des registres réels...';
+      if (scanBtnText) scanBtnText.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Scan multi-catégories...';
+      if (mapStatus) mapStatus.textContent = 'Interrogation des registres et POIs...';
 
       // 1. Geocode City
       const cityInput = (document.getElementById('scan-city') as HTMLInputElement)?.value.trim() || 'Marseille';
@@ -527,9 +609,9 @@ import Layout from '../layouts/Layout.astro';
       currentDomain = domainSelect?.value || 'creche';
       
       const domainLabels: Record<string, string> = {
-        creche: 'Micro-Crèches',
-        restaurant: 'Restaurants',
-        barbier: 'Coiffeurs & Barbiers',
+        creche: 'Crèches & Micro-Crèches',
+        restaurant: 'Restaurants, Brasseries & Snacks',
+        barbier: 'Coiffeurs & Salons de Barbier',
         ecole: 'Petites Écoles'
       };
 
@@ -542,135 +624,124 @@ import Layout from '../layouts/Layout.astro';
 
       let foundItems: Prospect[] = [];
 
-      // 2. Primary Source: OpenStreetMap Cadastre (Real verified POIs with names, streets, and tags)
-      const osmQueries: Record<string, string> = {
-        creche: `Micro-crèche ${currentCenter.city}`,
-        restaurant: `restaurant ${currentCenter.city}`,
-        barbier: `barbier ${currentCenter.city}`,
-        ecole: `école ${currentCenter.city}`
+      // 2. Broad Multi-Query Sets (Broaden searches for real places)
+      const multiQueries: Record<string, string[]> = {
+        creche: [
+          `Micro-crèche ${currentCenter.city}`,
+          `crèche ${currentCenter.city}`,
+          `halte garderie ${currentCenter.city}`,
+          `garde enfants ${currentCenter.city}`
+        ],
+        restaurant: [
+          `restaurant ${currentCenter.city}`,
+          `brasserie ${currentCenter.city}`,
+          `snack ${currentCenter.city}`,
+          `pizzeria ${currentCenter.city}`
+        ],
+        barbier: [
+          `barbier ${currentCenter.city}`,
+          `coiffeur ${currentCenter.city}`,
+          `salon de coiffure ${currentCenter.city}`
+        ],
+        ecole: [
+          `école privée ${currentCenter.city}`,
+          `école montessori ${currentCenter.city}`,
+          `école maternelle ${currentCenter.city}`
+        ]
       };
 
-      try {
-        const osmUrl = `https://nominatim.openstreetmap.org/search?q=${encodeURIComponent(osmQueries[currentDomain])}&format=json&limit=25&addressdetails=1&extratags=1&countrycodes=fr`;
-        const osmRes = await fetch(osmUrl, {
-          headers: { 'User-Agent': 'ProspectAUTO-RealSearch/1.0' }
-        });
-        const osmData = await osmRes.json();
+      const queries = multiQueries[currentDomain] || multiQueries.creche;
 
-        if (Array.isArray(osmData) && osmData.length > 0) {
-          osmData.forEach((item: any, idx: number) => {
-            const lat = parseFloat(item.lat);
-            const lon = parseFloat(item.lon);
-            const dist = calculateDistanceKm(currentCenter.lat, currentCenter.lng, lat, lon);
-
-            const addr = item.address || {};
-            const road = addr.road || addr.quarter || addr.suburb || '';
-            const houseNum = addr.house_number ? `${addr.house_number}, ` : '';
-            const fullAddress = `${houseNum}${road}`.trim() || item.display_name.split(',')[0];
-            const city = addr.city || addr.town || addr.village || addr.municipality || currentCenter.city;
-
-            const extra = item.extratags || {};
-            const phone = extra.phone || extra['contact:phone'] || 'À collecter par téléphone';
-            const email = extra.email || extra['contact:email'] || 'À collecter au premier contact';
-            const website = extra.website || extra['contact:website'] || '';
-
-            // Clean real name
-            const rawName = item.name || item.display_name.split(',')[0];
-            const cleanName = rawName.replace(/^amenity:|^shop:/i, '').trim();
-
-            if (cleanName && cleanName.length > 2) {
-              foundItems.push({
-                id: `osm-${item.osm_id || idx}`,
-                name: cleanName,
-                domain: currentDomain,
-                domainLabel: domainLabels[currentDomain],
-                address: fullAddress,
-                city,
-                phone,
-                email,
-                website: website || 'Aucun site officiel détecté',
-                lat,
-                lng: lon,
-                distanceKm: dist
-              });
-            }
+      // Query OpenStreetMap via Nominatim with valid User-Agent
+      for (const q of queries) {
+        try {
+          const osmUrl = `https://nominatim.openstreetmap.org/search?q=${encodeURIComponent(q)}&format=json&limit=15&addressdetails=1&extratags=1&countrycodes=fr`;
+          const osmRes = await fetch(osmUrl, {
+            headers: { 'User-Agent': 'ProspectAUTO-Commercial/1.0 (contact@prospectauto.fr)' }
           });
-        }
-      } catch (err) {
-        console.warn('OSM fetch warning:', err);
-      }
+          const osmData = await osmRes.json();
 
-      // 3. Complementary Source: French Government Official SIRENE Registry (recherche-entreprises.api.gouv.fr)
-      try {
-        const sireneKeywords: Record<string, string> = {
-          creche: 'micro-creche',
-          restaurant: 'restaurant',
-          barbier: 'coiffure barbier',
-          ecole: 'ecole privee'
-        };
+          if (Array.isArray(osmData)) {
+            osmData.forEach((item: any) => {
+              // Exclude street or cliff names like "Rue de la crèche"
+              if (item.class === 'highway' || item.class === 'natural' || item.class === 'boundary') return;
 
-        const sireneUrl = `https://recherche-entreprises.api.gouv.fr/search?q=${encodeURIComponent(sireneKeywords[currentDomain])}&departement=${encodeURIComponent(currentCenter.depcode)}&per_page=20`;
-        const sireneRes = await fetch(sireneUrl);
-        const sireneData = await sireneRes.json();
+              const lat = parseFloat(item.lat);
+              const lon = parseFloat(item.lon);
+              const dist = calculateDistanceKm(currentCenter.lat, currentCenter.lng, lat, lon);
 
-        if (sireneData?.results && Array.isArray(sireneData.results)) {
-          sireneData.results.forEach((ent: any) => {
-            const siege = ent.siege || {};
-            const coords = (siege.coordonnees || '').split(',');
-            const sLat = coords[0] ? parseFloat(coords[0]) : null;
-            const sLng = coords[1] ? parseFloat(coords[1]) : null;
+              const addr = item.address || {};
+              const road = addr.road || addr.quarter || addr.suburb || '';
+              const houseNum = addr.house_number ? `${addr.house_number}, ` : '';
+              const fullAddress = `${houseNum}${road}`.trim() || item.display_name.split(',')[0];
+              const city = addr.city || addr.town || addr.village || addr.municipality || currentCenter.city;
 
-            if (sLat && sLng) {
-              const dist = calculateDistanceKm(currentCenter.lat, currentCenter.lng, sLat, sLng);
-              const realName = ent.nom_complet || ent.nom_raison_sociale;
-              const realCity = siege.libelle_commune || currentCenter.city;
-              const realAddress = siege.adresse || `${siege.numero_voie || ''} ${siege.type_voie || ''} ${siege.libelle_voie || ''}`.trim() || realCity;
+              const extra = item.extratags || {};
+              const rawPhone = extra.phone || extra['contact:phone'] || '';
+              const rawEmail = extra.email || extra['contact:email'] || '';
+              const rawWebsite = extra.website || extra['contact:website'] || '';
 
-              // Avoid duplicates
-              const alreadyExists = foundItems.some(i => i.name.toLowerCase() === realName.toLowerCase());
-              if (!alreadyExists && realName) {
-                foundItems.push({
-                  id: `sirene-${ent.siren}`,
-                  name: realName,
-                  domain: currentDomain,
-                  domainLabel: domainLabels[currentDomain],
-                  address: realAddress,
-                  city: realCity,
-                  phone: '04 91 .. .. .. (RNE certifié)',
-                  email: 'Non public (Registre RNE)',
-                  website: 'Aucun site officiel détecté',
-                  lat: sLat,
-                  lng: sLng,
-                  distanceKm: dist
-                });
+              const rawName = item.name || item.display_name.split(',')[0];
+              const cleanName = rawName.replace(/^amenity:|^shop:/i, '').trim();
+
+              if (cleanName && cleanName.length > 2) {
+                const isDuplicate = foundItems.some(i => i.name.toLowerCase() === cleanName.toLowerCase() || (Math.abs(i.lat - lat) < 0.0008 && Math.abs(i.lng - lon) < 0.0008));
+                if (!isDuplicate) {
+                  foundItems.push({
+                    id: `osm-${item.osm_id || Math.random()}`,
+                    name: cleanName,
+                    domain: currentDomain,
+                    domainLabel: domainLabels[currentDomain],
+                    address: fullAddress,
+                    city,
+                    phone: rawPhone,
+                    email: rawEmail,
+                    website: rawWebsite,
+                    lat,
+                    lng: lon,
+                    distanceKm: dist
+                  });
+                }
               }
-            }
-          });
+            });
+          }
+        } catch (err) {
+          console.warn('Query warning for', q, err);
         }
-      } catch (err) {
-        console.warn('SIRENE fetch warning:', err);
       }
 
-      // 4. Filter by Radius
+      // Filter by radius & sort
       currentProspects = foundItems.filter(p => (p.distanceKm || 0) <= currentRadiusKm + 3);
-
-      // Sort by proximity
       currentProspects.sort((a, b) => (a.distanceKm || 0) - (b.distanceKm || 0));
 
-      // Update Map & Table
+      // Render
       renderMapMarkers();
       renderProspectsTable();
+      renderSavedTable();
 
-      // Update Stats
+      // Update counters
       const scanBadge = document.getElementById('scan-badge-count');
+      const sumPhones = document.getElementById('summary-phones');
       const sumWebsites = document.getElementById('summary-websites');
-      const countWithWeb = currentProspects.filter(p => p.website.startsWith('http')).length;
+      const countWithPhone = currentProspects.filter(p => p.phone && p.phone.length > 3).length;
+      const countWithWeb = currentProspects.filter(p => p.website && p.website.startsWith('http')).length;
 
       if (scanBadge) scanBadge.textContent = `${currentProspects.length} trouvés`;
-      if (sumWebsites) sumWebsites.textContent = `${countWithWeb} / ${currentProspects.length} avec site`;
+      if (sumPhones) sumPhones.textContent = `${countWithPhone} / ${currentProspects.length}`;
+      if (sumWebsites) sumWebsites.textContent = `${countWithWeb} / ${currentProspects.length}`;
 
       if (scanBtnText) scanBtnText.innerHTML = '<i class="fa-solid fa-rotate-right"></i> Relancer le scan';
       if (mapStatus) mapStatus.textContent = `${currentProspects.length} ${domainLabels[currentDomain]} réelles scannées`;
+    }
+
+    // Helper: Google Search Link generator
+    function getGoogleSearchUrl(name: string, city: string): string {
+      return `https://www.google.com/search?q=${encodeURIComponent(name + ' ' + city + ' telephone')}`;
+    }
+
+    // Helper: PagesJaunes Link generator
+    function getPagesJaunesUrl(name: string, city: string): string {
+      return `https://www.pagesjaunes.fr/annuaire/chercherlespros?quoiqui=${encodeURIComponent(name)}&ou=${encodeURIComponent(city)}`;
     }
 
     // Render Markers on Map
@@ -680,19 +751,28 @@ import Layout from '../layouts/Layout.astro';
 
       currentProspects.forEach(p => {
         const marker = L.marker([p.lat, p.lng]).addTo(markersLayer);
-        const webContent = p.website.startsWith('http') 
-          ? `<a href="${p.website}" target="_blank" rel="noopener" class="text-blue-600 underline font-semibold">Site officiel</a>` 
-          : `<span class="text-amber-600 font-bold">Sans site officiel (Opportunité)</span>`;
+        const phoneHtml = p.phone 
+          ? `<a href="tel:${p.phone.replace(/\s+/g, '')}" class="text-emerald-600 font-bold hover:underline">📞 ${p.phone}</a>`
+          : `<a href="${getGoogleSearchUrl(p.name, p.city)}" target="_blank" rel="noopener" class="text-blue-600 text-[11px] underline">Trouver numéro sur Google</a>`;
+
+        const webHtml = p.website && p.website.startsWith('http')
+          ? `<a href="${p.website}" target="_blank" rel="noopener" class="text-blue-600 underline font-semibold">Site officiel</a>`
+          : `<span class="text-amber-600 font-bold">Sans site officiel (À créer)</span>`;
 
         marker.bindPopup(`
           <div class="text-xs p-1 space-y-1.5 font-sans">
             <strong class="text-sm font-bold text-slate-900 block">${p.name}</strong>
             <p class="text-slate-600 m-0">${p.address}, ${p.city} (${p.distanceKm} km)</p>
-            <p class="m-0">📞 <strong>${p.phone}</strong></p>
-            <p class="m-0">${webContent}</p>
-            <button onclick="window.prepareEmail('${p.id}')" class="mt-2 w-full py-1.5 px-3 bg-blue-600 text-white rounded font-bold hover:bg-blue-700 transition">
-              Préparer le mail
-            </button>
+            <p class="m-0">${phoneHtml}</p>
+            <p class="m-0">${webHtml}</p>
+            <div class="flex gap-1 pt-1">
+              <button onclick="window.prepareEmail('${p.id}')" class="flex-1 py-1.5 px-2 bg-blue-600 text-white rounded font-bold hover:bg-blue-700 transition">
+                Préparer mail
+              </button>
+              <button onclick="window.toggleSaveProspect('${p.id}')" class="py-1.5 px-2 bg-amber-500 text-white rounded font-bold hover:bg-amber-600 transition" title="Enregistrer">
+                <i class="fa-solid fa-bookmark"></i>
+              </button>
+            </div>
           </div>
         `);
       });
@@ -706,8 +786,8 @@ import Layout from '../layouts/Layout.astro';
       if (currentProspects.length === 0) {
         tbody.innerHTML = `
           <tr>
-            <td colspan="6" class="text-center py-8 text-slate-400">
-              Aucun établissement réel trouvé dans ce rayon de ${currentRadiusKm} km. Essayez d'augmenter le rayon kilométrique ou de changer de ville.
+            <td colspan="7" class="text-center py-8 text-slate-400">
+              Aucun établissement trouvé dans ce rayon de ${currentRadiusKm} km. Essayez d'augmenter le curseur de distance ou de modifier la ville.
             </td>
           </tr>
         `;
@@ -715,13 +795,41 @@ import Layout from '../layouts/Layout.astro';
       }
 
       tbody.innerHTML = currentProspects.map(p => {
-        const hasWeb = p.website.startsWith('http');
-        const webBadge = hasWeb 
-          ? `<a href="${p.website}" target="_blank" rel="noopener" class="inline-flex items-center gap-1 text-blue-600 dark:text-blue-400 hover:underline"><i class="fa-solid fa-arrow-up-right-from-square text-[10px]"></i> ${p.website.replace(/^https?:\/\/(www\.)?/, '').slice(0, 20)}...</a>`
+        const saved = isProspectSaved(p.id);
+        const bookmarkBtn = `
+          <button onclick="window.toggleSaveProspect('${p.id}')" class="p-1.5 rounded-lg text-sm transition-colors ${saved ? 'text-amber-500 hover:text-amber-600' : 'text-slate-300 dark:text-slate-600 hover:text-amber-500'}" title="${saved ? 'Retirer des enregistrés' : 'Enregistrer ce prospect'}">
+            <i class="${saved ? 'fa-solid' : 'fa-regular'} fa-bookmark"></i>
+          </button>
+        `;
+
+        // Phone column
+        const phoneCell = p.phone
+          ? `<a href="tel:${p.phone.replace(/\s+/g, '')}" class="inline-flex items-center gap-1 font-mono font-bold text-emerald-600 dark:text-emerald-400 hover:underline"><i class="fa-solid fa-phone text-[10px]"></i> ${p.phone}</a>`
+          : `
+            <div class="flex items-center gap-1 text-[11px]">
+              <a href="${getGoogleSearchUrl(p.name, p.city)}" target="_blank" rel="noopener" class="px-2 py-0.5 rounded bg-blue-50 dark:bg-blue-950/60 text-blue-600 dark:text-blue-400 hover:underline inline-flex items-center gap-1" title="Chercher le numéro sur Google">
+                <i class="fa-brands fa-google text-[10px]"></i> Google
+              </a>
+              <a href="${getPagesJaunesUrl(p.name, p.city)}" target="_blank" rel="noopener" class="px-2 py-0.5 rounded bg-amber-50 dark:bg-amber-950/60 text-amber-600 dark:text-amber-400 hover:underline inline-flex items-center gap-1" title="Chercher sur PagesJaunes">
+                PJ
+              </a>
+            </div>
+          `;
+
+        // Email column
+        const emailCell = p.email
+          ? `<a href="mailto:${p.email}" class="text-blue-600 dark:text-blue-400 hover:underline">${p.email}</a>`
+          : `<span class="text-slate-400 italic">Non renseigné</span>`;
+
+        // Website column
+        const hasWeb = p.website && p.website.startsWith('http');
+        const webCell = hasWeb 
+          ? `<a href="${p.website}" target="_blank" rel="noopener" class="inline-flex items-center gap-1 text-blue-600 dark:text-blue-400 hover:underline"><i class="fa-solid fa-arrow-up-right-from-square text-[10px]"></i> ${p.website.replace(/^https?:\/\/(www\.)?/, '').slice(0, 18)}...</a>`
           : `<span class="px-2 py-0.5 rounded text-[10px] font-bold bg-amber-100 dark:bg-amber-950 text-amber-700 dark:text-amber-300">À créer</span>`;
 
         return `
           <tr class="hover:bg-slate-50/80 dark:hover:bg-slate-800/40 transition-colors">
+            <td class="py-3 px-3 text-center">${bookmarkBtn}</td>
             <td class="py-3 px-4 font-bold text-slate-900 dark:text-slate-100">
               <div class="flex items-center gap-2">
                 <span>${p.name}</span>
@@ -729,12 +837,63 @@ import Layout from '../layouts/Layout.astro';
               </div>
             </td>
             <td class="py-3 px-4 text-slate-600 dark:text-slate-400">${p.address}, ${p.city}</td>
-            <td class="py-3 px-4 font-mono font-semibold">${p.phone}</td>
-            <td class="py-3 px-4 text-blue-600 dark:text-blue-400">${p.email}</td>
-            <td class="py-3 px-4">${webBadge}</td>
+            <td class="py-3 px-4">${phoneCell}</td>
+            <td class="py-3 px-4">${emailCell}</td>
+            <td class="py-3 px-4">${webCell}</td>
             <td class="py-3 px-4 text-center">
               <button onclick="window.prepareEmail('${p.id}')" class="px-3 py-1.5 rounded-xl text-xs font-bold bg-blue-600 hover:bg-blue-700 text-white shadow-sm transition-all hover:scale-105 inline-flex items-center gap-1.5">
                 <i class="fa-solid fa-envelope"></i> Contacter
+              </button>
+            </td>
+          </tr>
+        `;
+      }).join('');
+    }
+
+    // Render Saved Table (Bookmarks)
+    function renderSavedTable() {
+      const tbody = document.getElementById('saved-tbody');
+      const badgeHeader = document.getElementById('saved-badge-header');
+      const navSavedCount = document.getElementById('nav-saved-count');
+      const savedList = getSaved();
+
+      if (badgeHeader) badgeHeader.textContent = `${savedList.length} enregistré(s)`;
+      if (navSavedCount) navSavedCount.textContent = savedList.length.toString();
+      if (!tbody) return;
+
+      if (savedList.length === 0) {
+        tbody.innerHTML = `
+          <tr>
+            <td colspan="6" class="text-center py-6 text-slate-400">
+              Aucun prospect enregistré. Cliquez sur l'icône <i class="fa-regular fa-bookmark text-amber-500"></i> dans le tableau pour mémoriser vos cibles prioritaires.
+            </td>
+          </tr>
+        `;
+        return;
+      }
+
+      tbody.innerHTML = savedList.map(p => {
+        const phoneCell = p.phone
+          ? `<a href="tel:${p.phone.replace(/\s+/g, '')}" class="font-mono font-bold text-emerald-600 hover:underline">📞 ${p.phone}</a>`
+          : `<a href="${getGoogleSearchUrl(p.name, p.city)}" target="_blank" rel="noopener" class="text-blue-600 text-[11px] underline">Numéro sur Google</a>`;
+
+        const webCell = p.website && p.website.startsWith('http')
+          ? `<a href="${p.website}" target="_blank" rel="noopener" class="text-blue-600 underline">Voir site</a>`
+          : `<span class="text-amber-600 font-bold">Sans site</span>`;
+
+        return `
+          <tr class="hover:bg-amber-50/50 dark:hover:bg-slate-800/40 transition-colors">
+            <td class="py-3 px-4 font-bold text-slate-900 dark:text-slate-100">${p.name}</td>
+            <td class="py-3 px-4 text-slate-500">${p.domainLabel}</td>
+            <td class="py-3 px-4 text-slate-600 dark:text-slate-400">${p.address}, ${p.city}</td>
+            <td class="py-3 px-4">${phoneCell}</td>
+            <td class="py-3 px-4">${webCell}</td>
+            <td class="py-3 px-4 text-center space-x-2">
+              <button onclick="window.prepareEmail('${p.id}')" class="px-2.5 py-1 rounded-lg text-xs font-bold bg-blue-600 text-white hover:bg-blue-700">
+                Mail
+              </button>
+              <button onclick="window.toggleSaveProspect('${p.id}')" class="px-2.5 py-1 rounded-lg text-xs text-rose-500 hover:bg-rose-50 dark:hover:bg-rose-950/40">
+                Retirer
               </button>
             </td>
           </tr>
@@ -786,13 +945,14 @@ import Layout from '../layouts/Layout.astro';
     const modalBody = document.getElementById('modal-body') as HTMLTextAreaElement;
 
     (window as any).prepareEmail = function(prospectId: string) {
-      const p = currentProspects.find(item => item.id === prospectId);
+      let p = currentProspects.find(item => item.id === prospectId);
+      if (!p) p = getSaved().find(item => item.id === prospectId);
       if (!p) return;
 
       selectedProspectForEmail = p;
       const template = emailTemplates[p.domain] || emailTemplates.creche;
       
-      const emailValue = p.email.includes('@') ? p.email : '';
+      const emailValue = p.email && p.email.includes('@') ? p.email : '';
       if (modalRecipient) modalRecipient.value = emailValue ? `${p.name} <${emailValue}>` : p.name;
       if (modalSubject) modalSubject.value = `${template.subject} - ${p.name}`;
       if (modalBody) modalBody.value = template.body(p);
@@ -820,7 +980,7 @@ import Layout from '../layouts/Layout.astro';
     if (btnOpenGmail) {
       btnOpenGmail.addEventListener('click', () => {
         if (!selectedProspectForEmail) return;
-        const to = selectedProspectForEmail.email.includes('@') ? selectedProspectForEmail.email : '';
+        const to = selectedProspectForEmail.email && selectedProspectForEmail.email.includes('@') ? selectedProspectForEmail.email : '';
         const subj = encodeURIComponent(modalSubject.value);
         const body = encodeURIComponent(modalBody.value);
         const gmailUrl = `https://mail.google.com/mail/?view=cm&fs=1&to=${to}&su=${subj}&body=${body}`;
@@ -840,7 +1000,7 @@ import Layout from '../layouts/Layout.astro';
           id: 'track-' + Date.now(),
           timestamp: dateStr,
           name: selectedProspectForEmail.name,
-          email: selectedProspectForEmail.email,
+          email: selectedProspectForEmail.email || 'Via Téléphone / Direct',
           domainLabel: selectedProspectForEmail.domainLabel,
           subject: modalSubject.value,
           status: 'Envoyé'
@@ -876,7 +1036,7 @@ import Layout from '../layouts/Layout.astro';
           currentCenter.lng = pos.coords.longitude;
           try {
             const revRes = await fetch(`https://nominatim.openstreetmap.org/reverse?lat=${currentCenter.lat}&lon=${currentCenter.lng}&format=json`, {
-              headers: { 'User-Agent': 'ProspectAUTO-App/1.0' }
+              headers: { 'User-Agent': 'ProspectAUTO-Commercial/1.0 (contact@prospectauto.fr)' }
             });
             const revData = await revRes.json();
             const cityName = revData.address?.city || revData.address?.town || revData.address?.village || 'Autour de moi';
@@ -896,34 +1056,50 @@ import Layout from '../layouts/Layout.astro';
       });
     }
 
-    // CSV Export
+    // CSV Exports
+    function exportToCsv(items: Prospect[], filename: string) {
+      const headers = ["Nom", "Domaine", "Adresse", "Ville", "Distance (km)", "Téléphone", "Email", "Site Web"];
+      const rows = items.map(p => [
+        `"${p.name.replace(/"/g, '""')}"`,
+        `"${p.domainLabel}"`,
+        `"${p.address.replace(/"/g, '""')}"`,
+        `"${p.city}"`,
+        p.distanceKm || '',
+        `"${p.phone || ''}"`,
+        `"${p.email || ''}"`,
+        `"${p.website || ''}"`
+      ]);
+
+      const csvContent = "data:text/csv;charset=utf-8,\uFEFF" + [headers.join(','), ...rows.map(e => e.join(','))].join('\n');
+      const encodedUri = encodeURI(csvContent);
+      const link = document.createElement("a");
+      link.setAttribute("href", encodedUri);
+      link.setAttribute("download", filename);
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+    }
+
     const btnExportCsv = document.getElementById('btn-export-csv');
     if (btnExportCsv) {
       btnExportCsv.addEventListener('click', () => {
         if (currentProspects.length === 0) {
-          alert("Veuillez d'abord lancer un scan pour exporter des données.");
+          alert("Veuillez d'abord lancer un scan.");
           return;
         }
-        const headers = ["Nom", "Domaine", "Adresse", "Ville", "Distance (km)", "Téléphone", "Email", "Site Web"];
-        const rows = currentProspects.map(p => [
-          `"${p.name.replace(/"/g, '""')}"`,
-          `"${p.domainLabel}"`,
-          `"${p.address.replace(/"/g, '""')}"`,
-          `"${p.city}"`,
-          p.distanceKm || '',
-          `"${p.phone}"`,
-          `"${p.email}"`,
-          `"${p.website}"`
-        ]);
+        exportToCsv(currentProspects, `prospects_${currentDomain}_${currentCenter.city.replace(/\s+/g, '_')}.csv`);
+      });
+    }
 
-        const csvContent = "data:text/csv;charset=utf-8,\uFEFF" + [headers.join(','), ...rows.map(e => e.join(','))].join('\n');
-        const encodedUri = encodeURI(csvContent);
-        const link = document.createElement("a");
-        link.setAttribute("href", encodedUri);
-        link.setAttribute("download", `prospects_${currentDomain}_${currentCenter.city.replace(/\s+/g, '_')}.csv`);
-        document.body.appendChild(link);
-        link.click();
-        document.body.removeChild(link);
+    const btnExportSavedCsv = document.getElementById('btn-export-saved-csv');
+    if (btnExportSavedCsv) {
+      btnExportSavedCsv.addEventListener('click', () => {
+        const saved = getSaved();
+        if (saved.length === 0) {
+          alert("Aucun prospect enregistré.");
+          return;
+        }
+        exportToCsv(saved, `prospects_enregistres_${currentCenter.city.replace(/\s+/g, '_')}.csv`);
       });
     }
 
@@ -956,6 +1132,7 @@ import Layout from '../layouts/Layout.astro';
     // Initial Load
     window.addEventListener('DOMContentLoaded', () => {
       initMap();
+      renderSavedTable();
       renderTrackingTable();
       performScan();
     });
