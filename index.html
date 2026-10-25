@@ -1,0 +1,560 @@
+<!DOCTYPE html>
+<html lang="fr" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ProspectAUTO - Solutions Web Métier & Prospection Automatisée</title>
+  <meta name="description" content="Développement de sites web sur-mesure & prospection intelligente pour micro-crèches, restaurants, barbiers/coiffeurs et petites écoles.">
+  
+  <!-- Tailwind CSS CDN + FontAwesome + Google Fonts -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Space+Grotesk:wght@600;700&display=swap" rel="stylesheet">
+
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+            display: ['"Space Grotesk"', 'sans-serif'],
+          },
+          colors: {
+            brand: {
+              50: '#eff6ff',
+              100: '#dbeafe',
+              500: '#3b82f6',
+              600: '#2563eb',
+              700: '#1d4ed8',
+              800: '#1e40af',
+              900: '#1e3a8a',
+            },
+            accent: {
+              creche: '#10b981',
+              restaurant: '#f97316',
+              barbier: '#eab308',
+              ecole: '#8b5cf6',
+            }
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    .glass-card {
+      background: rgba(255, 255, 255, 0.85);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border: 1px solid rgba(226, 232, 240, 0.8);
+    }
+    .dark .glass-card {
+      background: rgba(15, 23, 42, 0.85);
+      border: 1px solid rgba(51, 65, 85, 0.6);
+    }
+    .gradient-text {
+      background: linear-gradient(135deg, #2563eb 0%, #7c3aed 50%, #db2777 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+  </style>
+</head>
+<body class="bg-slate-50 dark:bg-slate-950 text-slate-900 dark:text-slate-100 font-sans min-h-screen transition-colors duration-200">
+
+  <!-- NAVBAR -->
+  <header class="sticky top-0 z-50 glass-card border-b border-slate-200/80 dark:border-slate-800/80">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
+      <div class="flex items-center space-x-3">
+        <div class="w-11 h-11 rounded-xl bg-gradient-to-tr from-blue-600 via-indigo-600 to-violet-600 flex items-center justify-center text-white shadow-lg shadow-blue-500/25">
+          <i class="fa-solid fa-radar text-lg animate-pulse"></i>
+        </div>
+        <div>
+          <span class="font-display font-extrabold text-2xl tracking-tight">Prospect<span class="text-blue-600 dark:text-blue-400">AUTO</span></span>
+          <span class="block text-[11px] font-medium text-slate-500 dark:text-slate-400 uppercase tracking-widest">Solutions Métier & Outbound IA</span>
+        </div>
+      </div>
+
+      <nav class="hidden md:flex items-center space-x-8 text-sm font-semibold text-slate-600 dark:text-slate-300">
+        <a href="#domaines" class="hover:text-blue-600 dark:hover:text-blue-400 transition-colors">Nos Réalisations</a>
+        <a href="#pipeline" class="hover:text-blue-600 dark:hover:text-blue-400 transition-colors">Le Moteur Harvey</a>
+        <a href="#brief-generator" class="hover:text-blue-600 dark:hover:text-blue-400 transition-colors">Simulateur & Brief</a>
+      </nav>
+
+      <div class="flex items-center space-x-4">
+        <button id="theme-toggle" class="p-2.5 rounded-xl border border-slate-200 dark:border-slate-800 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors" title="Changer le thème">
+          <i class="fa-solid fa-moon dark:hidden text-slate-700"></i>
+          <i class="fa-solid fa-sun hidden dark:inline text-amber-400"></i>
+        </button>
+        <a href="#brief-generator" class="inline-flex items-center px-4 py-2.5 rounded-xl text-sm font-bold bg-blue-600 hover:bg-blue-700 text-white shadow-md shadow-blue-600/30 transition-all hover:scale-[1.02]">
+          <i class="fa-solid fa-bolt mr-2"></i> Lancer une prospection
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <!-- HERO SECTION -->
+  <section class="relative overflow-hidden pt-12 pb-20 lg:pt-20 lg:pb-28">
+    <div class="absolute inset-0 pointer-events-none opacity-30 dark:opacity-20 flex justify-center">
+      <div class="w-[700px] h-[500px] bg-gradient-to-tr from-blue-500 to-fuchsia-500 blur-[130px] rounded-full -top-32"></div>
+    </div>
+
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
+      <div class="text-center max-w-3xl mx-auto">
+        <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full text-xs font-bold bg-blue-100/80 dark:bg-blue-900/40 text-blue-700 dark:text-blue-300 border border-blue-200 dark:border-blue-700/50 mb-6">
+          <span class="w-2 h-2 rounded-full bg-emerald-500 animate-ping"></span>
+          Système couplé au moteur IA Harvey (ethanplusai/harvey)
+        </div>
+        <h1 class="font-display text-4xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight leading-[1.15] mb-6">
+          Vos sites métiers créés, vos <span class="gradient-text">clients trouvés en automatique</span>.
+        </h1>
+        <p class="text-lg sm:text-xl text-slate-600 dark:text-slate-300 font-normal mb-8 leading-relaxed">
+          Nous concevons des sites performants pour les commerces et structures de proximité, tout en déployant un agent IA qui identifie les prospects locaux sur Google, extrait les décideurs et génère des opportunités qualifiées.
+        </p>
+
+        <!-- Stats Bar -->
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-4 p-4 rounded-2xl glass-card max-w-2xl mx-auto shadow-sm">
+          <div>
+            <div class="text-2xl font-extrabold text-blue-600 dark:text-blue-400">4</div>
+            <div class="text-xs font-semibold text-slate-500">Secteurs Dédiés</div>
+          </div>
+          <div>
+            <div class="text-2xl font-extrabold text-emerald-600 dark:text-emerald-400">100%</div>
+            <div class="text-xs font-semibold text-slate-500">Validation Humaine</div>
+          </div>
+          <div>
+            <div class="text-2xl font-extrabold text-amber-600 dark:text-amber-400">0 €</div>
+            <div class="text-xs font-semibold text-slate-500">Frais API par token</div>
+          </div>
+          <div>
+            <div class="text-2xl font-extrabold text-violet-600 dark:text-violet-400">Local</div>
+            <div class="text-xs font-semibold text-slate-500">Google Maps & Web</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- DOMAINES D'ACTIVITÉ (PORTFOLIO INTERACTIF) -->
+  <section id="domaines" class="py-16 bg-white dark:bg-slate-900/60 border-y border-slate-200/80 dark:border-slate-800">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex flex-col md:flex-row md:items-end justify-between mb-12">
+        <div>
+          <span class="text-xs font-bold text-blue-600 dark:text-blue-400 uppercase tracking-widest">Spécialisations</span>
+          <h2 class="font-display text-3xl sm:text-4xl font-extrabold tracking-tight mt-1">
+            Nos Métiers & Démonstrateurs
+          </h2>
+          <p class="text-slate-600 dark:text-slate-400 text-sm mt-2 max-w-xl">
+            Chaque secteur dispose d'un template sur-mesure doté de ses fonctionnalités indispensables et d'une stratégie d'outreach personnalisée.
+          </p>
+        </div>
+
+        <!-- Filter tabs -->
+        <div class="mt-6 md:mt-0 flex flex-wrap gap-2" id="filter-buttons">
+          <button class="filter-btn active px-4 py-2 rounded-xl text-xs font-bold bg-blue-600 text-white transition-all shadow-sm" data-filter="all">Tous</button>
+          <button class="filter-btn px-4 py-2 rounded-xl text-xs font-bold bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-700 transition-all" data-filter="creche">Micro-Crèches</button>
+          <button class="filter-btn px-4 py-2 rounded-xl text-xs font-bold bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-700 transition-all" data-filter="restaurant">Restaurants</button>
+          <button class="filter-btn px-4 py-2 rounded-xl text-xs font-bold bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-700 transition-all" data-filter="barbier">Coiffeurs & Barbiers</button>
+          <button class="filter-btn px-4 py-2 rounded-xl text-xs font-bold bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-700 transition-all" data-filter="ecole">Petites Écoles</button>
+        </div>
+      </div>
+
+      <!-- Grid Cards -->
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6" id="domain-cards">
+        
+        <!-- CARTE 1: MICRO-CRÈCHES -->
+        <div class="domain-card rounded-2xl glass-card overflow-hidden hover:shadow-xl transition-all duration-300 flex flex-col border border-emerald-200/50 dark:border-emerald-900/40" data-category="creche">
+          <div class="h-44 bg-gradient-to-br from-emerald-400 via-teal-500 to-green-600 relative p-5 flex flex-col justify-between text-white">
+            <div class="flex justify-between items-start">
+              <span class="px-2.5 py-1 rounded-lg text-[10px] font-extrabold uppercase tracking-wide bg-black/20 backdrop-blur-md">Actif & Validé</span>
+              <div class="w-9 h-9 rounded-xl bg-white/20 backdrop-blur-md flex items-center justify-center text-lg">
+                <i class="fa-solid fa-shapes"></i>
+              </div>
+            </div>
+            <div>
+              <h3 class="font-display text-xl font-bold">Micro-Crèches</h3>
+              <p class="text-xs text-emerald-100">Petite enfance & structures privées</p>
+            </div>
+          </div>
+          <div class="p-5 flex-1 flex flex-col justify-between space-y-4">
+            <div class="space-y-2 text-xs text-slate-600 dark:text-slate-300">
+              <div class="flex items-center gap-2">
+                <i class="fa-solid fa-circle-check text-emerald-500"></i> Formulaire de pré-inscription complet
+              </div>
+              <div class="flex items-center gap-2">
+                <i class="fa-solid fa-circle-check text-emerald-500"></i> Projet pédagogique & journée type
+              </div>
+              <div class="flex items-center gap-2">
+                <i class="fa-solid fa-circle-check text-emerald-500"></i> Galerie d'activités & agrément PMI
+              </div>
+            </div>
+            <div class="pt-3 border-t border-slate-100 dark:border-slate-800">
+              <div class="text-[11px] font-bold text-emerald-600 dark:text-emerald-400 mb-2">Angle d'approche Harvey :</div>
+              <p class="text-xs italic text-slate-500">"Simplifiez le calvaire des inscriptions papier et valorisez votre équipe et vos locaux auprès des parents."</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- CARTE 2: RESTAURANTS -->
+        <div class="domain-card rounded-2xl glass-card overflow-hidden hover:shadow-xl transition-all duration-300 flex flex-col border border-orange-200/50 dark:border-orange-900/40" data-category="restaurant">
+          <div class="h-44 bg-gradient-to-br from-orange-500 via-amber-500 to-red-500 relative p-5 flex flex-col justify-between text-white">
+            <div class="flex justify-between items-start">
+              <span class="px-2.5 py-1 rounded-lg text-[10px] font-extrabold uppercase tracking-wide bg-black/20 backdrop-blur-md">Actif & Validé</span>
+              <div class="w-9 h-9 rounded-xl bg-white/20 backdrop-blur-md flex items-center justify-center text-lg">
+                <i class="fa-solid fa-utensils"></i>
+              </div>
+            </div>
+            <div>
+              <h3 class="font-display text-xl font-bold">Restaurants</h3>
+              <p class="text-xs text-orange-100">Bistrots, brasseries, gastronomie</p>
+            </div>
+          </div>
+          <div class="p-5 flex-1 flex flex-col justify-between space-y-4">
+            <div class="space-y-2 text-xs text-slate-600 dark:text-slate-300">
+              <div class="flex items-center gap-2">
+                <i class="fa-solid fa-circle-check text-orange-500"></i> Carte & menus interactifs mobiles
+              </div>
+              <div class="flex items-center gap-2">
+                <i class="fa-solid fa-circle-check text-orange-500"></i> Réservation de table en 3 clics
+              </div>
+              <div class="flex items-center gap-2">
+                <i class="fa-solid fa-circle-check text-orange-500"></i> Flux Instagram en direct
+              </div>
+            </div>
+            <div class="pt-3 border-t border-slate-100 dark:border-slate-800">
+              <div class="text-[11px] font-bold text-orange-600 dark:text-orange-400 mb-2">Angle d'approche Harvey :</div>
+              <p class="text-xs italic text-slate-500">"Suppression des PDF illisibles sur smartphone et baisse des commissions des plateformes tierces."</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- CARTE 3: BARBIERS & COIFFEURS -->
+        <div class="domain-card rounded-2xl glass-card overflow-hidden hover:shadow-xl transition-all duration-300 flex flex-col border border-amber-200/50 dark:border-amber-900/40" data-category="barbier">
+          <div class="h-44 bg-gradient-to-br from-amber-600 via-yellow-600 to-stone-800 relative p-5 flex flex-col justify-between text-white">
+            <div class="flex justify-between items-start">
+              <span class="px-2.5 py-1 rounded-lg text-[10px] font-extrabold uppercase tracking-wide bg-black/20 backdrop-blur-md">Actif & Validé</span>
+              <div class="w-9 h-9 rounded-xl bg-white/20 backdrop-blur-md flex items-center justify-center text-lg">
+                <i class="fa-solid fa-scissors"></i>
+              </div>
+            </div>
+            <div>
+              <h3 class="font-display text-xl font-bold">Barbiers & Salons</h3>
+              <p class="text-xs text-amber-100">Coiffure homme/femme & grooming</p>
+            </div>
+          </div>
+          <div class="p-5 flex-1 flex flex-col justify-between space-y-4">
+            <div class="space-y-2 text-xs text-slate-600 dark:text-slate-300">
+              <div class="flex items-center gap-2">
+                <i class="fa-solid fa-circle-check text-amber-500"></i> Prise de RDV instantanée (Planity/Direct)
+              </div>
+              <div class="flex items-center gap-2">
+                <i class="fa-solid fa-circle-check text-amber-500"></i> Grille tarifaire & prestations claire
+              </div>
+              <div class="flex items-center gap-2">
+                <i class="fa-solid fa-circle-check text-amber-500"></i> Ambiance visuelle élégante & moderne
+              </div>
+            </div>
+            <div class="pt-3 border-t border-slate-100 dark:border-slate-800">
+              <div class="text-[11px] font-bold text-amber-600 dark:text-amber-400 mb-2">Angle d'approche Harvey :</div>
+              <p class="text-xs italic text-slate-500">"Captation des clients locaux cherchant un créneau le soir même sur Google Maps."</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- CARTE 4: PETITES ÉCOLES -->
+        <div class="domain-card rounded-2xl glass-card overflow-hidden hover:shadow-xl transition-all duration-300 flex flex-col border border-violet-200/50 dark:border-violet-900/40" data-category="ecole">
+          <div class="h-44 bg-gradient-to-br from-violet-600 via-indigo-600 to-purple-800 relative p-5 flex flex-col justify-between text-white">
+            <div class="flex justify-between items-start">
+              <span class="px-2.5 py-1 rounded-lg text-[10px] font-extrabold uppercase tracking-wide bg-violet-900/50 backdrop-blur-md">Déploiement Prêt</span>
+              <div class="w-9 h-9 rounded-xl bg-white/20 backdrop-blur-md flex items-center justify-center text-lg">
+                <i class="fa-solid fa-graduation-cap"></i>
+              </div>
+            </div>
+            <div>
+              <h3 class="font-display text-xl font-bold">Petites Écoles</h3>
+              <p class="text-xs text-violet-100">Écoles privées, alternatives & ateliers</p>
+            </div>
+          </div>
+          <div class="p-5 flex-1 flex flex-col justify-between space-y-4">
+            <div class="space-y-2 text-xs text-slate-600 dark:text-slate-300">
+              <div class="flex items-center gap-2">
+                <i class="fa-solid fa-circle-check text-violet-500"></i> Dossier d'admission & journée portes ouvertes
+              </div>
+              <div class="flex items-center gap-2">
+                <i class="fa-solid fa-circle-check text-violet-500"></i> Calendrier scolaire & événements
+              </div>
+              <div class="flex items-center gap-2">
+                <i class="fa-solid fa-circle-check text-violet-500"></i> Pédagogie (Montessori, bilingue, active)
+              </div>
+            </div>
+            <div class="pt-3 border-t border-slate-100 dark:border-slate-800">
+              <div class="text-[11px] font-bold text-violet-600 dark:text-violet-400 mb-2">Angle d'approche Harvey :</div>
+              <p class="text-xs italic text-slate-500">"Offrez une image d'excellence et rassurez les familles dès leur première recherche en ligne."</p>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- WORKFLOW HARVEY (PROSPECTION AUTOMATISÉE) -->
+  <section id="pipeline" class="py-20 bg-slate-50 dark:bg-slate-950">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center max-w-3xl mx-auto mb-16">
+        <span class="text-xs font-bold text-blue-600 dark:text-blue-400 uppercase tracking-widest">Le Pipeline de Prospection</span>
+        <h2 class="font-display text-3xl sm:text-4xl font-extrabold tracking-tight mt-1">
+          Comment Harvey génère vos clients de A à Z
+        </h2>
+        <p class="text-slate-600 dark:text-slate-400 text-sm mt-3">
+          Un fonctionnement 100% transparent basé sur le projet Open-Source Harvey avec une sécurité totale : aucun email ne part sans votre feu vert explicite.
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-4 gap-6 relative">
+        <!-- Step 1 -->
+        <div class="p-6 rounded-2xl glass-card relative group hover:-translate-y-1 transition-all">
+          <div class="w-12 h-12 rounded-xl bg-blue-100 dark:bg-blue-900/50 text-blue-600 dark:text-blue-400 flex items-center justify-center text-xl font-bold mb-4">
+            1
+          </div>
+          <h4 class="font-bold text-base mb-2">Scan & Discovery</h4>
+          <p class="text-xs text-slate-600 dark:text-slate-400 leading-relaxed">
+            Recherche sur Google Maps et dans votre secteur géographique selon les mots-clés de votre cible (ex: "micro-crèche Lyon", "barbier Bordeaux").
+          </p>
+        </div>
+
+        <!-- Step 2 -->
+        <div class="p-6 rounded-2xl glass-card relative group hover:-translate-y-1 transition-all">
+          <div class="w-12 h-12 rounded-xl bg-indigo-100 dark:bg-indigo-900/50 text-indigo-600 dark:text-indigo-400 flex items-center justify-center text-xl font-bold mb-4">
+            2
+          </div>
+          <h4 class="font-bold text-base mb-2">Extraction & Analyse</h4>
+          <p class="text-xs text-slate-600 dark:text-slate-400 leading-relaxed">
+            Visite le site actuel du prospect, détecte le nom du dirigeant, l'adresse email directe, et note les manques (site lent, pas adapté mobile, etc.).
+          </p>
+        </div>
+
+        <!-- Step 3 -->
+        <div class="p-6 rounded-2xl glass-card relative group hover:-translate-y-1 transition-all border-2 border-emerald-500/40">
+          <div class="w-12 h-12 rounded-xl bg-emerald-100 dark:bg-emerald-900/50 text-emerald-600 dark:text-emerald-400 flex items-center justify-center text-xl font-bold mb-4">
+            <i class="fa-solid fa-user-shield text-base"></i>
+          </div>
+          <div class="flex items-center gap-2 mb-2">
+            <h4 class="font-bold text-base">Validation Humaine</h4>
+            <span class="text-[9px] bg-emerald-500 text-white font-bold px-1.5 py-0.5 rounded">Requis</span>
+          </div>
+          <p class="text-xs text-slate-600 dark:text-slate-400 leading-relaxed">
+            Harvey génère un brouillon sur-mesure. L'email est placé dans votre <em>Decisions Desk</em> : vous relisez, approuvez ou modifiez en 1 clic.
+          </p>
+        </div>
+
+        <!-- Step 4 -->
+        <div class="p-6 rounded-2xl glass-card relative group hover:-translate-y-1 transition-all">
+          <div class="w-12 h-12 rounded-xl bg-purple-100 dark:bg-purple-900/50 text-purple-600 dark:text-purple-400 flex items-center justify-center text-xl font-bold mb-4">
+            4
+          </div>
+          <h4 class="font-bold text-base mb-2">Envoi & Rendez-vous</h4>
+          <p class="text-xs text-slate-600 dark:text-slate-400 leading-relaxed">
+            Dès validation, l'email est envoyé via votre boîte Gmail/SMTP. Harvey suit les réponses pour vous notifier quand un client souhaite échanger.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SIMULATEUR HARVEY & GÉNÉRATEUR DE BRIEF PROSPECT -->
+  <section id="brief-generator" class="py-16 bg-white dark:bg-slate-900/80 border-t border-slate-200/80 dark:border-slate-800">
+    <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="p-8 sm:p-10 rounded-3xl glass-card shadow-xl border border-slate-200/80 dark:border-slate-800">
+        <div class="flex flex-col md:flex-row md:items-center justify-between pb-8 border-b border-slate-200 dark:border-slate-800 gap-4">
+          <div>
+            <h3 class="font-display text-2xl sm:text-3xl font-extrabold tracking-tight">
+              Simulateur de Prospection & Brief Métier
+            </h3>
+            <p class="text-xs sm:text-sm text-slate-600 dark:text-slate-400 mt-1">
+              Sélectionnez votre domaine d'activité pour prévisualiser l'email généré par Harvey avec contrôle de confirmation.
+            </p>
+          </div>
+          <span class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-semibold bg-emerald-100 dark:bg-emerald-950 text-emerald-700 dark:text-emerald-300 border border-emerald-300 dark:border-emerald-800">
+            <i class="fa-solid fa-lock text-[10px]"></i> Mode confirmation actif
+          </span>
+        </div>
+
+        <form id="prospect-form" class="mt-8 space-y-6">
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <!-- Secteur -->
+            <div>
+              <label class="block text-xs font-bold uppercase tracking-wider text-slate-700 dark:text-slate-300 mb-2">
+                1. Domaine d'activité
+              </label>
+              <select id="select-sector" class="w-full px-4 py-3 rounded-xl bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-sm font-medium focus:ring-2 focus:ring-blue-500 outline-none">
+                <option value="creche">Micro-Crèche</option>
+                <option value="restaurant">Restaurant / Brasserie</option>
+                <option value="barbier">Coiffeur / Barbier</option>
+                <option value="ecole">Petite École / École Privée</option>
+              </select>
+            </div>
+
+            <!-- Ville / Zone -->
+            <div>
+              <label class="block text-xs font-bold uppercase tracking-wider text-slate-700 dark:text-slate-300 mb-2">
+                2. Zone géographique cible
+              </label>
+              <input type="text" id="target-city" value="Autour de chez moi (Rayon 25 km)" class="w-full px-4 py-3 rounded-xl bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-sm font-medium focus:ring-2 focus:ring-blue-500 outline-none">
+            </div>
+
+            <!-- Nom prospect simulé -->
+            <div>
+              <label class="block text-xs font-bold uppercase tracking-wider text-slate-700 dark:text-slate-300 mb-2">
+                3. Exemple d'établissement
+              </label>
+              <input type="text" id="target-name" value="Les Petits Pas" class="w-full px-4 py-3 rounded-xl bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-sm font-medium focus:ring-2 focus:ring-blue-500 outline-none">
+            </div>
+          </div>
+
+          <!-- Preview de l'email généré -->
+          <div class="p-6 rounded-2xl bg-slate-100 dark:bg-slate-950/70 border border-slate-200 dark:border-slate-800 space-y-3">
+            <div class="flex items-center justify-between text-xs text-slate-500">
+              <span class="font-bold text-slate-700 dark:text-slate-300">
+                <i class="fa-solid fa-envelope-open-text text-blue-500 mr-1.5"></i> Brouillon généré pour décision :
+              </span>
+              <span class="bg-amber-100 dark:bg-amber-950 text-amber-700 dark:text-amber-300 px-2 py-0.5 rounded text-[11px] font-semibold">
+                Statut : En attente d'approbation
+              </span>
+            </div>
+            <div id="email-preview" class="text-sm font-mono text-slate-800 dark:text-slate-200 bg-white dark:bg-slate-900 p-4 rounded-xl border border-slate-200 dark:border-slate-800 whitespace-pre-line leading-relaxed">
+              Chargement du modèle...
+            </div>
+          </div>
+
+          <!-- Bouton d'action et feedback -->
+          <div class="flex flex-col sm:flex-row items-center justify-between gap-4 pt-2">
+            <div class="text-xs text-slate-500 flex items-center gap-2">
+              <i class="fa-solid fa-shield-halved text-emerald-500 text-base"></i>
+              Garantie Harvey : Aucun email n'est envoyé sans clic sur <strong>"Confirmer l'envoi"</strong>.
+            </div>
+            <div class="flex items-center space-x-3 w-full sm:w-auto">
+              <button type="button" id="btn-simulate" class="w-full sm:w-auto px-5 py-3 rounded-xl text-sm font-bold bg-slate-200 dark:bg-slate-800 hover:bg-slate-300 dark:hover:bg-slate-700 transition-colors">
+                Regénérer avec l'IA
+              </button>
+              <button type="button" id="btn-approve" class="w-full sm:w-auto px-6 py-3 rounded-xl text-sm font-bold bg-emerald-600 hover:bg-emerald-700 text-white shadow-lg shadow-emerald-600/30 transition-all flex items-center justify-center gap-2">
+                <i class="fa-solid fa-check"></i> Confirmer & Valider le tir
+              </button>
+            </div>
+          </div>
+
+          <!-- Notification d'envoi simulée -->
+          <div id="status-alert" class="hidden p-4 rounded-xl bg-emerald-100 dark:bg-emerald-950 border border-emerald-200 dark:border-emerald-800 text-emerald-800 dark:text-emerald-200 text-xs font-semibold flex items-center gap-2">
+            <i class="fa-solid fa-circle-check text-emerald-500 text-base"></i>
+            <span>Email approuvé ! L'agent Harvey a programmé l'envoi sécurisé via votre boîte sans dépasser les quotas anti-spam.</span>
+          </div>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="py-12 border-t border-slate-200 dark:border-slate-800 text-center text-xs text-slate-500">
+    <div class="max-w-7xl mx-auto px-4 space-y-4">
+      <p class="font-display font-bold text-slate-700 dark:text-slate-300 text-sm">ProspectAUTO &copy; 2026 - Conçu par Alexandre Poveda</p>
+      <p>Micro-Crèches • Restaurants • Salons de Barbier & Coiffure • Petites Écoles</p>
+      <p class="text-[11px] text-slate-400">Intégration moteur open-source Harvey (Claude Code / Codex CLI)</p>
+    </div>
+  </footer>
+
+  <!-- SCRIPT INTERACTIF -->
+  <script>
+    // Theme toggle
+    const themeToggleBtn = document.getElementById('theme-toggle');
+    themeToggleBtn.addEventListener('click', () => {
+      document.documentElement.classList.toggle('dark');
+    });
+
+    // Sector Templates
+    const templates = {
+      creche: {
+        name: "Micro-Crèche Les P'tits Loups",
+        body: `Bonjour,\n\nJe me permets de vous contacter car j'accompagne les micro-crèches dans la digitalisation de leurs inscriptions et la mise en avant de leur projet pédagogique.\n\nEn découvrant votre structure, j'ai vu que vous accueillez les tout-petits avec une belle approche de bienveillance. Nous avons mis en place pour d'autres crèches un module complet avec formulaire de pré-inscription en ligne, présentation de la journée type et galerie d'activités aux normes PMI.\n\nSeriez-vous ouvert à échanger 5 minutes cette semaine pour voir si cela pourrait vous faire gagner du temps sur la gestion des inscriptions ?\n\nBien cordialement,\nAlexandre Poveda`
+      },
+      restaurant: {
+        name: "Brasserie Le Saint-Germain",
+        body: `Bonjour,\n\nJe suis tombé sur votre restaurant et vos spécialités ont l'air superbes !\n\nJe remarque toutefois que beaucoup d'établissements voisins perdent encore des clients à cause de menus scannés en PDF peu lisibles sur smartphone ou de commissions élevées sur les plateformes de réservation.\n\nNous déployons pour les restaurateurs des sites fluides intégrant un menu mobile ultra-rapide et un module de réservation direct sans commission par couvert.\n\nAuriez-vous 5 minutes pour y jeter un oeil ?\n\nBien cordialement,\nAlexandre Poveda`
+      },
+      barbier: {
+        name: "Atelier Barber & Co",
+        body: `Bonjour,\n\nJe suis passé devant votre salon / j'ai découvert votre page et l'univers grooming que vous proposez est top.\n\nPour les salons de coiffure et barbiers indépendants, nous avons développé un template ultra-moderne avec affichage direct des tarifs, galerie de réalisations et redirection instantanée vers la prise de créneau en ligne.\n\nEst-ce qu'une démonstration rapide de 5 minutes pourrait vous intéresser ?\n\nBien cordialement,\nAlexandre Poveda`
+      },
+      ecole: {
+        name: "École Alternative L'Envol",
+        body: `Bonjour Madame/Monsieur la Directrice, le Directeur,\n\nJe prends contact avec vous car nous accompagnons les petites écoles indépendantes et structures d'enseignement alternatif dans la valorisation de leur pédagogie auprès des familles.\n\nNous concevons des portails clairs regroupant le projet éducatif, le calendrier des portes ouvertes et les demandes de dossier d'admission pour simplifier vos rentrées.\n\nPouvons-nous en discuter quelques minutes par téléphone ?\n\nBien cordialement,\nAlexandre Poveda`
+      }
+    };
+
+    const sectorSelect = document.getElementById('select-sector');
+    const nameInput = document.getElementById('target-name');
+    const emailPreview = document.getElementById('email-preview');
+    const btnSimulate = document.getElementById('btn-simulate');
+    const btnApprove = document.getElementById('btn-approve');
+    const statusAlert = document.getElementById('status-alert');
+
+    function updatePreview() {
+      const sector = sectorSelect.value;
+      const data = templates[sector];
+      if (nameInput.dataset.manual !== "true") {
+        nameInput.value = data.name;
+      }
+      emailPreview.textContent = `Objet : Digitalisation & visibilité locale - ${nameInput.value}\n\n` + data.body;
+      statusAlert.classList.add('hidden');
+    }
+
+    sectorSelect.addEventListener('change', () => {
+      nameInput.dataset.manual = "false";
+      updatePreview();
+    });
+
+    nameInput.addEventListener('input', () => {
+      nameInput.dataset.manual = "true";
+      const sector = sectorSelect.value;
+      const data = templates[sector];
+      emailPreview.textContent = `Objet : Digitalisation & visibilité locale - ${nameInput.value}\n\n` + data.body;
+    });
+
+    btnSimulate.addEventListener('click', () => {
+      updatePreview();
+    });
+
+    btnApprove.addEventListener('click', () => {
+      statusAlert.classList.remove('hidden');
+      statusAlert.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    });
+
+    // Filters for domain cards
+    const filterBtns = document.querySelectorAll('.filter-btn');
+    const cards = document.querySelectorAll('.domain-card');
+
+    filterBtns.forEach(btn => {
+      btn.addEventListener('click', () => {
+        filterBtns.forEach(b => {
+          b.classList.remove('active', 'bg-blue-600', 'text-white');
+          b.classList.add('bg-slate-100', 'dark:bg-slate-800', 'text-slate-700', 'dark:text-slate-300');
+        });
+        btn.classList.add('active', 'bg-blue-600', 'text-white');
+        btn.classList.remove('bg-slate-100', 'dark:bg-slate-800', 'text-slate-700', 'dark:text-slate-300');
+
+        const cat = btn.dataset.filter;
+        cards.forEach(card => {
+          if (cat === 'all' || card.dataset.category === cat) {
+            card.style.display = 'flex';
+          } else {
+            card.style.display = 'none';
+          }
+        });
+      });
+    });
+
+    // Initialize
+    updatePreview();
+  </script>
+</body>
+</html>

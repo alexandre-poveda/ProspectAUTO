@@ -1,0 +1,39 @@
+agent:
+  name: "ProspectAUTO Outbound Agent"
+  user_name: "Alexandre Poveda"
+  email: "alexandre.povedapro@gmail.com"
+  tone: "professionnel, bienveillant, orienté valeur métier"
+
+safety:
+  # Confirmation humaine obligatoire avant tout envoi d'email
+  require_approval: true
+  max_emails_per_day: 30
+  delay_between_emails_seconds: 180
+  kill_switch: false
+  strip_excessive_links: true
+  check_unrendered_tags: true
+
+email_provider:
+  type: "gmail" # ou smtp / instantly
+  from_name: "Alexandre Poveda"
+
+niches:
+  - id: "micro-creches"
+    title: "Micro-Crèches"
+    keywords: ["micro-crèche", "accueil petite enfance", "crèche privée"]
+    value_proposition: "Formulaire de pré-inscription en ligne, gain de temps administratif et vitrine rassurante pour les parents."
+
+  - id: "restaurants"
+    title: "Restaurants & Métiers de bouche"
+    keywords: ["restaurant", "brasserie", "bistrot contemporain"]
+    value_proposition: "Carte interactive mobile rapide, réservation de couverts directe sans commission de plateforme."
+
+  - id: "barbiers"
+    title: "Coiffeurs & Barbiers"
+    keywords: ["barbier", "barber shop", "salon de coiffure homme"]
+    value_proposition: "Affichage moderne des prestations et redirection directe vers la prise de rendez-vous en ligne."
+
+  - id: "ecoles"
+    title: "Petites Écoles & Enseignement Privé"
+    keywords: ["école privée", "école alternative", "école montessori"]
+    value_proposition: "Dossier d'admission en ligne, calendrier scolaire et valorisation du projet pédagogique."
