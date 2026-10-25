@@ -1,68 +1,8 @@
-<!DOCTYPE html>
-<html lang="fr" class="scroll-smooth">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>ProspectAUTO - Solutions Web Métier & Prospection Automatisée</title>
-  <meta name="description" content="Développement de sites web sur-mesure & prospection intelligente pour micro-crèches, restaurants, barbiers/coiffeurs et petites écoles.">
-  
-  <!-- Tailwind CSS CDN + FontAwesome + Google Fonts -->
-  <script src="https://cdn.tailwindcss.com"></script>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Space+Grotesk:wght@600;700&display=swap" rel="stylesheet">
+---
+import Layout from '../layouts/Layout.astro';
+---
 
-  <script>
-    tailwind.config = {
-      darkMode: 'class',
-      theme: {
-        extend: {
-          fontFamily: {
-            sans: ['"Plus Jakarta Sans"', 'sans-serif'],
-            display: ['"Space Grotesk"', 'sans-serif'],
-          },
-          colors: {
-            brand: {
-              50: '#eff6ff',
-              100: '#dbeafe',
-              500: '#3b82f6',
-              600: '#2563eb',
-              700: '#1d4ed8',
-              800: '#1e40af',
-              900: '#1e3a8a',
-            },
-            accent: {
-              creche: '#10b981',
-              restaurant: '#f97316',
-              barbier: '#eab308',
-              ecole: '#8b5cf6',
-            }
-          }
-        }
-      }
-    }
-  </script>
-  <style>
-    .glass-card {
-      background: rgba(255, 255, 255, 0.85);
-      backdrop-filter: blur(12px);
-      -webkit-backdrop-filter: blur(12px);
-      border: 1px solid rgba(226, 232, 240, 0.8);
-    }
-    .dark .glass-card {
-      background: rgba(15, 23, 42, 0.85);
-      border: 1px solid rgba(51, 65, 85, 0.6);
-    }
-    .gradient-text {
-      background: linear-gradient(135deg, #2563eb 0%, #7c3aed 50%, #db2777 100%);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-    }
-  </style>
-</head>
-<body class="bg-slate-50 dark:bg-slate-950 text-slate-900 dark:text-slate-100 font-sans min-h-screen transition-colors duration-200">
-
+<Layout>
   <!-- NAVBAR -->
   <header class="sticky top-0 z-50 glass-card border-b border-slate-200/80 dark:border-slate-800/80">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
@@ -401,7 +341,7 @@
               <label class="block text-xs font-bold uppercase tracking-wider text-slate-700 dark:text-slate-300 mb-2">
                 2. Zone géographique cible
               </label>
-              <input type="text" id="target-city" value="Autour de chez moi (Rayon 25 km)" class="w-full px-4 py-3 rounded-xl bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-sm font-medium focus:ring-2 focus:ring-blue-500 outline-none">
+              <input type="text" id="target-city" value="Autour de chez moi (Rayon 25 km)" class="w-full px-4 py-3 rounded-xl bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-sm font-medium focus:ring-2 focus:ring-blue-500 outline-none" />
             </div>
 
             <!-- Nom prospect simulé -->
@@ -409,7 +349,7 @@
               <label class="block text-xs font-bold uppercase tracking-wider text-slate-700 dark:text-slate-300 mb-2">
                 3. Exemple d'établissement
               </label>
-              <input type="text" id="target-name" value="Les Petits Pas" class="w-full px-4 py-3 rounded-xl bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-sm font-medium focus:ring-2 focus:ring-blue-500 outline-none">
+              <input type="text" id="target-name" value="Les Petits Pas" class="w-full px-4 py-3 rounded-xl bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-sm font-medium focus:ring-2 focus:ring-blue-500 outline-none" />
             </div>
           </div>
 
@@ -463,71 +403,80 @@
     </div>
   </footer>
 
-  <!-- SCRIPT INTERACTIF -->
   <script>
     // Theme toggle
     const themeToggleBtn = document.getElementById('theme-toggle');
-    themeToggleBtn.addEventListener('click', () => {
-      document.documentElement.classList.toggle('dark');
-    });
+    if (themeToggleBtn) {
+      themeToggleBtn.addEventListener('click', () => {
+        document.documentElement.classList.toggle('dark');
+      });
+    }
 
     // Sector Templates
     const templates = {
       creche: {
         name: "Micro-Crèche Les P'tits Loups",
-        body: `Bonjour,\n\nJe me permets de vous contacter car j'accompagne les micro-crèches dans la digitalisation de leurs inscriptions et la mise en avant de leur projet pédagogique.\n\nEn découvrant votre structure, j'ai vu que vous accueillez les tout-petits avec une belle approche de bienveillance. Nous avons mis en place pour d'autres crèches un module complet avec formulaire de pré-inscription en ligne, présentation de la journée type et galerie d'activités aux normes PMI.\n\nSeriez-vous ouvert à échanger 5 minutes cette semaine pour voir si cela pourrait vous faire gagner du temps sur la gestion des inscriptions ?\n\nBien cordialement,\nAlexandre Poveda`
+        body: "Bonjour,\n\nJe me permets de vous contacter car j'accompagne les micro-crèches dans la digitalisation de leurs inscriptions et la mise en avant de leur projet pédagogique.\n\nEn découvrant votre structure, j'ai vu que vous accueillez les tout-petits avec une belle approche de bienveillance. Nous avons mis en place pour d'autres crèches un module complet avec formulaire de pré-inscription en ligne, présentation de la journée type et galerie d'activités aux normes PMI.\n\nSeriez-vous ouvert à échanger 5 minutes cette semaine pour voir si cela pourrait vous faire gagner du temps sur la gestion des inscriptions ?\n\nBien cordialement,\nAlexandre Poveda"
       },
       restaurant: {
         name: "Brasserie Le Saint-Germain",
-        body: `Bonjour,\n\nJe suis tombé sur votre restaurant et vos spécialités ont l'air superbes !\n\nJe remarque toutefois que beaucoup d'établissements voisins perdent encore des clients à cause de menus scannés en PDF peu lisibles sur smartphone ou de commissions élevées sur les plateformes de réservation.\n\nNous déployons pour les restaurateurs des sites fluides intégrant un menu mobile ultra-rapide et un module de réservation direct sans commission par couvert.\n\nAuriez-vous 5 minutes pour y jeter un oeil ?\n\nBien cordialement,\nAlexandre Poveda`
+        body: "Bonjour,\n\nJe suis tombé sur votre restaurant et vos spécialités ont l'air superbes !\n\nJe remarque toutefois que beaucoup d'établissements voisins perdent encore des clients à cause de menus scannés en PDF peu lisibles sur smartphone ou de commissions élevées sur les plateformes de réservation.\n\nNous déployons pour les restaurateurs des sites fluides intégrant un menu mobile ultra-rapide et un module de réservation direct sans commission par couvert.\n\nAuriez-vous 5 minutes pour y jeter un oeil ?\n\nBien cordialement,\nAlexandre Poveda"
       },
       barbier: {
         name: "Atelier Barber & Co",
-        body: `Bonjour,\n\nJe suis passé devant votre salon / j'ai découvert votre page et l'univers grooming que vous proposez est top.\n\nPour les salons de coiffure et barbiers indépendants, nous avons développé un template ultra-moderne avec affichage direct des tarifs, galerie de réalisations et redirection instantanée vers la prise de créneau en ligne.\n\nEst-ce qu'une démonstration rapide de 5 minutes pourrait vous intéresser ?\n\nBien cordialement,\nAlexandre Poveda`
+        body: "Bonjour,\n\nJe suis passé devant votre salon / j'ai découvert votre page et l'univers grooming que vous proposez est top.\n\nPour les salons de coiffure et barbiers indépendants, nous avons développé un template ultra-moderne avec affichage direct des tarifs, galerie de réalisations et redirection instantanée vers la prise de créneau en ligne.\n\nEst-ce qu'une démonstration rapide de 5 minutes pourrait vous intéresser ?\n\nBien cordialement,\nAlexandre Poveda"
       },
       ecole: {
         name: "École Alternative L'Envol",
-        body: `Bonjour Madame/Monsieur la Directrice, le Directeur,\n\nJe prends contact avec vous car nous accompagnons les petites écoles indépendantes et structures d'enseignement alternatif dans la valorisation de leur pédagogie auprès des familles.\n\nNous concevons des portails clairs regroupant le projet éducatif, le calendrier des portes ouvertes et les demandes de dossier d'admission pour simplifier vos rentrées.\n\nPouvons-nous en discuter quelques minutes par téléphone ?\n\nBien cordialement,\nAlexandre Poveda`
+        body: "Bonjour Madame/Monsieur la Directrice, le Directeur,\n\nJe prends contact avec vous car nous accompagnons les petites écoles indépendantes et structures d'enseignement alternatif dans la valorisation de leur pédagogie auprès des familles.\n\nNous concevons des portails clairs regroupant le projet éducatif, le calendrier des portes ouvertes et les demandes de dossier d'admission pour simplifier vos rentrées.\n\nPouvons-nous en discuter quelques minutes par téléphone ?\n\nBien cordialement,\nAlexandre Poveda"
       }
     };
 
-    const sectorSelect = document.getElementById('select-sector');
-    const nameInput = document.getElementById('target-name');
+    const sectorSelect = document.getElementById('select-sector') as HTMLSelectElement | null;
+    const nameInput = document.getElementById('target-name') as HTMLInputElement | null;
     const emailPreview = document.getElementById('email-preview');
     const btnSimulate = document.getElementById('btn-simulate');
     const btnApprove = document.getElementById('btn-approve');
     const statusAlert = document.getElementById('status-alert');
 
     function updatePreview() {
-      const sector = sectorSelect.value;
-      const data = templates[sector];
+      if (!sectorSelect || !nameInput || !emailPreview) return;
+      const sector = sectorSelect.value as keyof typeof templates;
+      const data = templates[sector] || templates.creche;
       if (nameInput.dataset.manual !== "true") {
         nameInput.value = data.name;
       }
       emailPreview.textContent = `Objet : Digitalisation & visibilité locale - ${nameInput.value}\n\n` + data.body;
-      statusAlert.classList.add('hidden');
+      if (statusAlert) statusAlert.classList.add('hidden');
     }
 
-    sectorSelect.addEventListener('change', () => {
-      nameInput.dataset.manual = "false";
-      updatePreview();
-    });
+    if (sectorSelect && nameInput) {
+      sectorSelect.addEventListener('change', () => {
+        nameInput.dataset.manual = "false";
+        updatePreview();
+      });
 
-    nameInput.addEventListener('input', () => {
-      nameInput.dataset.manual = "true";
-      const sector = sectorSelect.value;
-      const data = templates[sector];
-      emailPreview.textContent = `Objet : Digitalisation & visibilité locale - ${nameInput.value}\n\n` + data.body;
-    });
+      nameInput.addEventListener('input', () => {
+        nameInput.dataset.manual = "true";
+        if (!sectorSelect || !emailPreview) return;
+        const sector = sectorSelect.value as keyof typeof templates;
+        const data = templates[sector] || templates.creche;
+        emailPreview.textContent = `Objet : Digitalisation & visibilité locale - ${nameInput.value}\n\n` + data.body;
+      });
+    }
 
-    btnSimulate.addEventListener('click', () => {
-      updatePreview();
-    });
+    if (btnSimulate) {
+      btnSimulate.addEventListener('click', () => {
+        updatePreview();
+      });
+    }
 
-    btnApprove.addEventListener('click', () => {
-      statusAlert.classList.remove('hidden');
-      statusAlert.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-    });
+    if (btnApprove && statusAlert) {
+      btnApprove.addEventListener('click', () => {
+        statusAlert.classList.remove('hidden');
+        statusAlert.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+      });
+    }
 
     // Filters for domain cards
     const filterBtns = document.querySelectorAll('.filter-btn');
@@ -542,8 +491,9 @@
         btn.classList.add('active', 'bg-blue-600', 'text-white');
         btn.classList.remove('bg-slate-100', 'dark:bg-slate-800', 'text-slate-700', 'dark:text-slate-300');
 
-        const cat = btn.dataset.filter;
-        cards.forEach(card => {
+        const cat = (btn as HTMLElement).dataset.filter;
+        cards.forEach(c => {
+          const card = c as HTMLElement;
           if (cat === 'all' || card.dataset.category === cat) {
             card.style.display = 'flex';
           } else {
@@ -556,5 +506,4 @@
     // Initialize
     updatePreview();
   </script>
-</body>
-</html>
+</Layout>
